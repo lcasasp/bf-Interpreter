@@ -8,30 +8,32 @@ This project is a Brainf*** language interpreter written in Rust. The primary go
 
 Clone the repository:
 
-\`\`\`bash
+```
 git clone https://github.com/lcasasp/bf-Interpreter.git
 cd bf-Interpreter
-\`\`\`
+```
 
 Build the project:
 
-\`\`\`bash
+```
 cargo build --release
-\`\`\`
+```
 
 ### Usage
 
 Run a Brainfuck script:
 
-\`\`\`bash
-cargo run -- path/to/your/script.bf
-\`\`\`
+```
+cargo run testing/helloworld.bf
+or your own file with:
+cargo run /path/../script.bf
+```
 
 Or, run the interpreter in interactive mode:
 
-\`\`\`bash
+```
 cargo run
-\`\`\`
+```
 
 ## Development Journey
 
