@@ -1,10 +1,8 @@
-//Bf uses an array of 30000 1 byte memory blocks
+//Bf typically uses an array of 30000 1 byte memory blocks
 const TAPE_SIZE: usize = 30000;
 
 pub struct BfInterpreter {
-    // The memory tape
     tape: [u8; TAPE_SIZE],
-    // The data pointer
     pointer: usize,
 }
 
@@ -143,7 +141,7 @@ impl BfInterpreter {
         }
         start  // Fallback: return original position
     }
-    
+
 }
 
 #[cfg(test)]
@@ -159,6 +157,17 @@ mod tests {
 
         // Check data pointer at pos 0
         assert_eq!(interpreter.pointer, 0, "Data pointer should be initialized to 0");
+    }
+
+    #[test]
+    fn test_move() {
+        let mut interpreter: BfInterpreter = BfInterpreter::new();
+    
+        interpreter.move_right();
+        assert_eq!(interpreter.pointer, 1, "Pointer should move to the right");
+    
+        interpreter.move_left();
+        assert_eq!(interpreter.pointer, 0, "Pointer should move back to the left");
     }
 
     #[test]
@@ -206,5 +215,15 @@ mod tests {
         let jump_position: usize = interpreter.jump_backward(3, &program);
 
         assert_eq!(jump_position, 1, "Should jump to the position after matching '['");
+    }
+
+    #[test]
+    fn test_program_execution() {
+        let mut interpreter: BfInterpreter = BfInterpreter::new();
+        let program: &str = "++>+++<";
+        interpreter.execute(program);
+
+        assert_eq!(interpreter.tape[0], 2, "First cell should be incremented twice");
+        assert_eq!(interpreter.tape[1], 3, "Second cell should be incremented three times");
     }
 }
